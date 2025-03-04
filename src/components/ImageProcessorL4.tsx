@@ -61,8 +61,7 @@ const ImageProcessorL4: React.FC = () => {
 
             {/* Пояснительный текст */}
             <p className="text-gray-400 text-center mb-8">
-                Загрузите BMP-файл для его обработки. Вы можете преобразовать изображение в черно-белое,
-                добавить рамку или повернуть его.
+                Загрузите BMP-файл для его вывода.
             </p>
 
             {/* Форма загрузки файла */}
@@ -79,9 +78,9 @@ const ImageProcessorL4: React.FC = () => {
             {/* Сообщение о результате */}
             {message && (
                 <p className={`text-center text-xl font-semibold ${message.includes('Ошибка') ? 'text-red-500' : 'text-green-400'}`}>
-                    {message}
-                </p>
-            )}
+                    {/* message */}
+                </p> 
+            )}  
 
             {/* Canvas для отображения результатов */}
             <canvas
