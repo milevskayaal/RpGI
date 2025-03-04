@@ -23,8 +23,8 @@ const PCXDecoder: React.FC = () => {
 
   const decodePCX = (buffer: ArrayBuffer): HTMLCanvasElement => {
     const dataView = new DataView(buffer);
-    
-    // Read PCX header
+
+    // Чтение заголовка PCX
     const id = dataView.getUint8(0);
     if (id !== 0x0A) {
       throw new Error("Неверный идентификатор PCX (ожидается 0x0A)");
@@ -49,7 +49,7 @@ const PCXDecoder: React.FC = () => {
     const height = yMax - yMin + 1;
     const bytesPerLine = dataView.getUint16(66, true);
 
-    // Decode RLE compressed data
+    // Декодирование данных RLE
     const imageSize = height * bytesPerLine;
     let decoded = new Uint8Array(imageSize);
     let pos = 0;
@@ -70,7 +70,7 @@ const PCXDecoder: React.FC = () => {
       }
     }
 
-    // Extract palette
+    // Извлечение палитры
     if (buffer.byteLength < 769 + 128) {
       throw new Error("Файл слишком маленький для палитры");
     }
@@ -84,7 +84,7 @@ const PCXDecoder: React.FC = () => {
       palette[i] = dataView.getUint8(paletteStart + i);
     }
 
-    // Create canvas
+    // Создание canvas
     const canvas = document.createElement('canvas');
     canvas.width = width;
     canvas.height = height;
@@ -111,25 +111,38 @@ const PCXDecoder: React.FC = () => {
   };
 
   return (
-    <div className="bg-gray-900 p-4 rounded-lg shadow-lg">
-      <h1 className="text-antique-gold text-2xl font-bold mb-4">
-        Декодирование и вывод PCX файла
+    <div className="bg-gray-800 p-8 rounded-lg shadow-lg max-w-3xl mx-auto">
+      {/* Заголовок */}
+      <h1 className="text-purple-400 text-2xl font-bold text-center mb-6">
+        Декодирование PCX-изображений
       </h1>
-      
+
+      {/* Пояснительный текст */}
+      <p className="text-gray-400 text-center mb-8">
+        Загрузите PCX-файл, и он будет автоматически декодирован и отображен.
+      </p>
+
+      {/* Форма загрузки файла */}
+      <label htmlFor="pcxFile" className="block text-purple-300 font-medium text-lg mb-2 text-center">
+        Выберите PCX-файл:
+      </label>
       <input
         type="file"
         id="pcxFile"
         accept=".pcx"
         onChange={handleFileChange}
-        className="mb-4 text-white"
+        className="w-full bg-gray-700 text-white rounded p-2 mb-8"
       />
 
+      {/* Отображение декодированного изображения */}
       {imageUrl && (
-        <img 
-          src={imageUrl} 
-          alt="Decoded PCX" 
-          className="border border-gray-700 rounded"
-        />
+        <div className="flex justify-center">
+          <img
+            src={imageUrl}
+            alt="Decoded PCX"
+            className="border border-purple-400 rounded-lg shadow-md bg-gray-700 max-w-full h-auto"
+          />
+        </div>
       )}
     </div>
   );

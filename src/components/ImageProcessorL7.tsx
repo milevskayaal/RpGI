@@ -221,92 +221,136 @@ const ImageProcessorL7: React.FC = () => {
     };
 
     return (
-        <div className="bg-gray-900 p-4 rounded-lg shadow-lg">
-            <h2 className="text-antique-gold text-2xl font-bold mb-4">BMP Steganography</h2>
-
-            <div className="mb-4">
-                <label className="text-gray-300">Container BMP File (24-bit):</label>
-                <FileInput onFileChange={(file) => {
-                const reader = new FileReader();
-                reader.onload = (e) => {
-                    setContainerFile(e.target?.result as ArrayBuffer);
-                    setOriginalImageUrl(URL.createObjectURL(file));
-                };
-                reader.readAsArrayBuffer(file);
-
-                }} />
+        <div className="bg-gray-800 p-8 rounded-lg shadow-lg max-w-3xl mx-auto">
+            {/* Заголовок */}
+            <h2 className="text-purple-400 text-2xl font-bold text-center mb-6">Стеганография BMP</h2>
+            <p className="text-gray-400 text-center mb-8">
+                Загрузите BMP-изображение (24-бит) и текстовый файл для скрытия данных или выберите стеганографическое изображение для извлечения.
+            </p>
+    
+            {/* Загрузка контейнера */}
+            <div className="mb-8">
+                <label className="block text-purple-300 font-medium text-lg mb-2">Контейнер BMP (24-бит):</label>
+                <FileInput
+                    onFileChange={(file) => {
+                        const reader = new FileReader();
+                        reader.onload = (e) => {
+                            setContainerFile(e.target?.result as ArrayBuffer);
+                            setOriginalImageUrl(URL.createObjectURL(file));
+                        };
+                        reader.readAsArrayBuffer(file);
+                    }}
+                />
+                {originalImageUrl && (
+                    <img
+                        src={originalImageUrl}
+                        alt="Original"
+                        className="mt-4 border border-purple-400 rounded-lg shadow-md bg-gray-700 w-full h-64 object-cover"
+                    />
+                )}
             </div>
-
-            <div className="mb-4">
-                <label className="text-gray-300">Text File:</label>
-                <FileInput onFileChange={(file) => {
-                    const reader = new FileReader();
-                    reader.onload = (e) => setTextFile(e.target?.result as ArrayBuffer);
-                    reader.readAsArrayBuffer(file);
-                }} />
+    
+            {/* Загрузка текстового файла */}
+            <div className="mb-8">
+                <label className="block text-purple-300 font-medium text-lg mb-2">Текстовый файл:</label>
+                <FileInput
+                    onFileChange={(file) => {
+                        const reader = new FileReader();
+                        reader.onload = (e) => setTextFile(e.target?.result as ArrayBuffer);
+                        reader.readAsArrayBuffer(file);
+                    }}
+                />
             </div>
-
-            <div className="mb-4">
-                <label className="text-gray-300">Mode:</label>
+    
+            {/* Выбор режима */}
+            <div className="mb-8">
+                <label className="block text-purple-300 font-medium text-lg mb-2">Режим:</label>
                 <select
                     value={mode}
                     onChange={(e) => setMode(e.target.value)}
-                    className="ml-2 bg-gray-700 text-white rounded p-1"
+                    className="ml-2 bg-gray-700 text-white rounded p-1 w-full"
                 >
-                    <option value="25">25% (2 bits)</option>
-                    <option value="50">50% (4 bits)</option>
-                    <option value="75">75% (6 bits)</option>
+                    <option value="25">25% (2 бита)</option>
+                    <option value="50">50% (4 бита)</option>
+                    <option value="75">75% (6 бит)</option>
                 </select>
             </div>
-
+    
+            {/* Кнопка встраивания */}
             <button
                 onClick={handleEmbed}
-                className="bg-antique-gold text-gray-900 py-2 px-4 rounded-md mr-2 hover:bg-gray-800 transition-colors"
+                className="bg-purple-600 text-white py-2 px-4 rounded-md hover:bg-purple-700 transition-colors w-full mb-8"
             >
-                Embed Text
+                Спрятать текст
             </button>
-
-            <div className="mt-4">
-                <label className="text-gray-300">Stego BMP File:</label>
-                <FileInput onFileChange={(file) => {
-                    const reader = new FileReader();
-                    reader.onload = (e) => setStegoFile(e.target?.result as ArrayBuffer);
-                    reader.readAsArrayBuffer(file);
-                }} />
+    
+            {/* Отображение стеганографического изображения */}
+            {stegoImageUrl && (
+                <div className="mb-8">
+                    <h3 className="text-purple-300 font-medium text-lg mb-2">Стеганографическое изображение:</h3>
+                    <img
+                        src={stegoImageUrl}
+                        alt="Stego"
+                        className="mt-4 border border-purple-400 rounded-lg shadow-md bg-gray-700 w-full h-64 object-cover"
+                    />
+                    <a
+                        href={stegoImageUrl}
+                        download="stego_image.bmp"
+                        className="block mt-4 bg-purple-600 text-white py-2 px-4 rounded-md hover:bg-purple-700 transition-colors text-center"
+                    >
+                        Скачать стеганографическое изображение
+                    </a>
+                </div>
+            )}
+    
+            {/* Загрузка стеганографического файла */}
+            <div className="mb-8">
+                <label className="block text-purple-300 font-medium text-lg mb-2">Стеганографическое BMP:</label>
+                <FileInput
+                    onFileChange={(file) => {
+                        const reader = new FileReader();
+                        reader.onload = (e) => setStegoFile(e.target?.result as ArrayBuffer);
+                        reader.readAsArrayBuffer(file);
+                    }}
+                />
             </div>
-
+    
+            {/* Кнопка извлечения */}
             <button
                 onClick={handleExtract}
-                className="bg-antique-gold text-gray-900 py-2 px-4 rounded-md mt-2 hover:bg-gray-800 transition-colors"
+                className="bg-purple-600 text-white py-2 px-4 rounded-md hover:bg-purple-700 transition-colors w-full mb-8"
             >
-                Extract Text
+                Извлечь текст
             </button>
-
-            <div className="mt-4">
-                <label className="text-gray-300">Extracted Text:</label>
-                <textarea
-                    value={extractedText}
-                    readOnly
-                    className="w-full h-32 bg-gray-700 text-white rounded p-2 mt-2"
-                />
-                <button
-                    onClick={() => {
-                        const blob = new Blob([extractedText], { type: 'text/plain' });
-                        const url = URL.createObjectURL(blob);
-                        const a = document.createElement('a');
-                        a.href = url;
-                        a.download = 'extracted_text.txt';
-                        document.body.appendChild(a);
-                        a.click();
-                        URL.revokeObjectURL(url);
-                        a.remove();
-                    }}
-                    className="bg-antique-gold text-gray-900 py-2 px-4 rounded-md mt-2 hover:bg-gray-800 transition-colors"
-                >
-                    Download Extracted Text
-                </button>
-
-            </div>
+    
+            {/* Отображение извлеченного текста */}
+            {extractedText && (
+                <div>
+                    <h3 className="text-purple-300 font-medium text-lg mb-2">Извлеченный текст:</h3>
+                    <textarea
+                        value={extractedText}
+                        readOnly
+                        className="w-full bg-gray-700 text-white p-4 rounded-lg mb-4"
+                        rows={5}
+                    />
+                    <button
+                        onClick={() => {
+                            const blob = new Blob([extractedText], { type: 'text/plain' });
+                            const url = URL.createObjectURL(blob);
+                            const a = document.createElement('a');
+                            a.href = url;
+                            a.download = 'extracted_text.txt';
+                            document.body.appendChild(a);
+                            a.click();
+                            URL.revokeObjectURL(url);
+                            document.body.removeChild(a);
+                        }}
+                        className="bg-purple-600 text-white py-2 px-4 rounded-md hover:bg-purple-700 transition-colors"
+                    >
+                        Скачать извлеченный текст
+                    </button>
+                </div>
+            )}
         </div>
     );
 };
