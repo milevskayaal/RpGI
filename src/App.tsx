@@ -1,28 +1,30 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
-import ImageProcessorL1 from './components/ImageProcessorL1';
-import ImageProcessorL2 from './components/ImageProcessorL2';
-import ImageProcessorL3 from './components/ImageProcessorL3';
+import ImageProcessorL4 from './components/ImageProcessorL4';
+import ImageProcessorL5 from './components/ImageProcessorL5';
+import ImageProcessorL6 from './components/ImageProcessorL6';
+import ImageProcessorL7 from './components/ImageProcessorL7';
+import PCXDecoder from './components/PCXDecoder';
 
 const App: React.FC = () => {
     return (
         <Router>
-            <div className="flex">
-                <aside className="w-1/4 bg-gray-800 text-white p-4">
-                    <h1 className="text-2xl font-bold mb-4">lab 1-3</h1>
-                    <nav className="flex flex-col space-y-2">
-                        <Link to="/l1" className="bg-antique-gold text-gray-900 py-2 px-4 rounded-md transition duration-300 hover:bg-gray-700">Convert to Grayscale</Link>
-                        <Link to="/l2" className="bg-antique-gold text-gray-900 py-2 px-4 rounded-md transition duration-300 hover:bg-gray-700">Add Border</Link>
-                        <Link to="/l3" className="bg-antique-gold text-gray-900 py-2 px-4 rounded-md transition duration-300 hover:bg-gray-700">Rotate Image</Link>
-                    </nav>
-                </aside>
-                <main className="flex-1 p-4">
-                    <Routes>
-                        <Route path="/l1" element={<ImageProcessorL1 />} />
-                        <Route path="/l2" element={<ImageProcessorL2 />} />
-                        <Route path="/l3" element={<ImageProcessorL3 />} />
-                    </Routes>
-                </main>
+            <div className="App">
+                <h1 className="text-4xl font-bold text-antique-gold mb-6">BMP Image Processor</h1>
+                <div className="flex space-x-4 mb-4">
+                    <Link to="/l4" className="bg-antique-gold text-gray-900 py-2 px-4 rounded-md transition duration-300 hover:bg-gray-800">Лабораторная 4</Link>
+                    <Link to="/l5" className="bg-antique-gold text-gray-900 py-2 px-4 rounded-md transition duration-300 hover:bg-gray-800">Лабораторная 5</Link>
+                    <Link to="/l6" className="bg-antique-gold text-gray-900 py-2 px-4 rounded-md transition duration-300 hover:bg-gray-800">Лабораторная 6</Link>
+                    <Link to="/l7" className="bg-antique-gold text-gray-900 py-2 px-4 rounded-md transition duration-300 hover:bg-gray-800">Лабораторная 7</Link>
+                    <Link to="/l8" className="bg-antique-gold text-gray-900 py-2 px-4 rounded-md transition duration-300 hover:bg-gray-800">Лабораторная 8</Link>
+                </div>
+                <Routes>
+                    <Route path="/l4" element={<ImageProcessorL4 />} />
+                    <Route path="/l5" element={<ImageProcessorL5 />} />
+                    <Route path="/l6" element={<ImageProcessorL6 />} />
+                    <Route path="/l7" element={<ImageProcessorL7 />} />
+                    <Route path="/l8" element={<PCXDecoder />} />
+                </Routes>
             </div>
         </Router>
     );

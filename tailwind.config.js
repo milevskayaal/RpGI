@@ -8,9 +8,11 @@ export default {
     extend: {
       colors: {
         'bruised-purple': '#5B3F8D',
-        'antique-gold': '#D4C29A',
         'aged-wine-red': '#8B2A2A',
-        'dark-gray': '#1A1A1A', // Added new color for dark gray
+        'antique-gold': '#D4C29A',
+      },
+      fontFamily: {
+        'gothic': ['UnifrakturMaguntia', 'Metamorphous', 'serif'],
       },
     },
   },

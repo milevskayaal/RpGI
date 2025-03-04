@@ -1,14 +1,22 @@
-/* Existing styles... */
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+  background-color: #5B3F8D; /* Deep Bruised Purple */
+  border: 2px solid #D4C29A; /* Antique Gold border */
+  border-radius: 10px; /* Slightly rounded corners for a gothic touch */
+}
 
-/* Sidebar styles */
-.sidebar {
-    position: fixed;
-    left: 0;
-    top: 0;
-    width: 250px; /* Adjust as needed */
-    height: 100vh; /* Full height */
-    background-color: #333; /* Background color */
-    color: white; /* Text color */
-    padding: 20px; /* Padding */
-    /* Other styles as needed */
+.card {
+  padding: 2em;
+  background-color: #1A1A1A; /* Very dark grey for card background */
+  border: 1px solid #8B2A2A; /* Aged Wine Red border */
+  border-radius: 8px; /* Rounded corners for a softer look */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* Add shadow for depth */
+}
+
+.read-the-docs {
+  color: #D4C29A; /* Antique Gold for text */
+  font-style: italic; /* Italicize for emphasis */
 }
